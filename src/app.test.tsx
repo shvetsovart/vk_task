@@ -39,11 +39,51 @@ describe('App Component', () => {
     });
   });
 
-//   it('item editing', () => {
-//     repositoryStore.repositories = [
-//         { id: 1, name: "Repo 1", stargazers_count: 10, forks_count: 5, language: "TypeScript", description: "Description 1", html_url: 'https://github.com/Repo1' },
-//     ];
+  it('edits a repository item', async () => {
+    repositoryStore.repositories = [
+      { id: 1, name: 'Repo A', stargazers_count: 50, forks_count: 20, language: 'TypeScript', description: '', html_url: 'https://github.com/repoA' },
+      { id: 2, name: 'Repo B', stargazers_count: 30, forks_count: 15, language: 'JavaScript', description: '', html_url: 'https://github.com/repoB' },
+    ];
 
+    await act(async() => {
+      render(<App />);
+    });
 
-//   });
+    const editButton = screen.getAllByText('Edit')[0];
+    await act(async () => {
+      fireEvent.click(editButton);
+    });
+
+    const nameInput = screen.getByPlaceholderText('Name');
+    await act(async () => {
+      fireEvent.change(nameInput, { target: { value: 'Repo A Updated' } });
+    });
+
+    const saveButton = screen.getByText('Save');
+    await act(async () => {
+      fireEvent.click(saveButton);
+    });
+
+    await waitFor(() => expect(screen.getByText('Repo A Updated')).toBeInTheDocument());
+  });
+
+  it('deletes a repository item', async () => {
+    repositoryStore.repositories = [
+      { id: 1, name: 'Repo A', stargazers_count: 50, forks_count: 20, language: 'TypeScript', description: '', html_url: 'https://github.com/repoA' },
+      { id: 2, name: 'Repo B', stargazers_count: 30, forks_count: 15, language: 'JavaScript', description: '', html_url: 'https://github.com/repoB' },
+    ];
+
+    await act(async () => {
+      render(<App/>);
+    });
+
+    expect(screen.getByText('Repo A')).toBeInTheDocument();
+
+    const deleteButton = screen.getAllByText('Delete')[0];
+    await act(async() => {
+      fireEvent.click(deleteButton);
+    });
+
+    await waitFor(() => expect(screen.queryByText('Repo A')).not.toBeInTheDocument());
+  });
 });

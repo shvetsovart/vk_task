@@ -30,22 +30,24 @@ const App: React.FC = observer(() => {
     }, []);
 
     const sortOptions = [
-        { value: 'name', label: <Text>Name</Text> },    
+        { value: 'name', label: <Text>Name</Text> },
         { value: 'stargazers_count', label: <Text>Stars</Text> },
         { value: 'forks_count', label: <Text>Forks</Text> },
         { value: 'language', label: <Text>Language</Text> },
       ];
 
     return (
-        <Divider>
-            <Title>GitHub Repositories</Title>
-            <Text style={{marginRight: "5px"}}>Sort by: </Text>
-            <Select
-            options={sortOptions}
-            defaultValue="Nothing"
-            style={{width: 120}}
-            onChange={handleSortChange}
-            />
+        <div>
+            <Title style={{textAlign: "center"}}>GitHub Repositories</Title>
+            <Divider style={{margin: "0 auto"}}>
+                <Text style={{marginRight: "5px"}}>Sort by: </Text>
+                <Select
+                options={sortOptions}
+                defaultValue="Nothing"
+                style={{width: 120}}
+                onChange={handleSortChange}
+                />
+            </Divider>
             <List
             size="small"
             >
@@ -59,7 +61,7 @@ const App: React.FC = observer(() => {
                     <Paragraph style={{paddingTop: "12px"}}>Loading more repositories...</Paragraph>
                 </div>
                 )}
-        </Divider>
+        </div>
     );
 
 

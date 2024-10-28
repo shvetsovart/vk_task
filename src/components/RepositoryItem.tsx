@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { repositoryStore } from "../stores/RepositoryStore";
 import { Repository } from "../models/Repository";
-import { Button, Input, Typography, List } from 'antd';
+import { Button, Input, Typography, List, Divider } from 'antd';
 
 const { Title, Paragraph, Link } = Typography;
 const { TextArea } = Input;
@@ -50,36 +50,44 @@ const RepositoryItem: React.FC<RepositoryItemProps> = ({ repo }) => {
     };
 
     return (
-        <List.Item style={{display: "flex", justifyContent: "start", gap: "20px", wordWrap: "break-word"}}>
+        <List.Item style={{display: "grid", gridTemplateColumns: "20% 20% 10% 10% 10% 10% 10% 10%", alignItems: "center"}}>
             {isEditing ? (
                 <>
-                    <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
-                    <TextArea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description"/>
-                    <Input value={language} onChange={(e) => setLanguage(e.target.value)} placeholder="Language" />
-                    <Input type="number" value={stargazersCount} onChange={(e) => setStargazersCount(Number(e.target.value))} placeholder="Stars" />
-                    <Input type="number" value={forksCount} onChange={(e) => setForksCount(Number(e.target.value))} placeholder="Forks" />
-                    <Button onClick={handleSave}>Save</Button>
-                    <Button onClick={handleCancel}>Cancel</Button>
+                    <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" style={{margin: "0 0.5rem", width: "90%"}}/>
+                    <TextArea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" style={{margin: "0 0.5rem", width: "90%"}}/>
+                    <Input value={language} onChange={(e) => setLanguage(e.target.value)} placeholder="Language" style={{margin: "0 0.5rem", width: "90%"}}/>
+                    <Input type="number"
+                           value={stargazersCount}
+                           onChange={(e) => setStargazersCount(Number(e.target.value))}
+                           placeholder="Stars"
+                           style={{margin: "0 0.5rem", width: "90%"}}/>
+                    <Input type="number"
+                           value={forksCount}
+                           onChange={(e) => setForksCount(Number(e.target.value))}
+                           placeholder="Forks"
+                           style={{margin: "0 0.5rem", width: "90%"}}/>
+                    <div></div>
+                    <Button onClick={handleSave} style={{margin: "0 0.5rem"}}>Save</Button>
+                    <Button onClick={handleCancel} style={{margin: "0 0.5rem"}}>Cancel</Button>
                 </>
             ) : (
                 <>
-                    <Title level={2} style={{width: "300px", whiteSpace: "normal"}}>{name}</Title>
-                    <Paragraph style={{width: "200px", whiteSpace: "normal"}}>{description || "No description available."}</Paragraph>
-                    <Paragraph>Language: {language}</Paragraph>
-                    <Paragraph>Stars: {stargazersCount}</Paragraph>
-                    <Paragraph>Forks: {forksCount}</Paragraph>
-                    <Paragraph>
+                    <Title level={2} style={{whiteSpace: "normal", padding: "0.5rem", textAlign: "center"}}>{name}</Title>
+                    <Paragraph style={{whiteSpace: "normal", textAlign: "center", marginBottom: "initial"}}>{description || "No description available."}</Paragraph>
+                    <Paragraph style={{whiteSpace: "normal", textAlign: "center", marginBottom: "initial"}}>Language: {language}</Paragraph>
+                    <Paragraph style={{textAlign: "center", marginBottom: "initial"}}>Stars: {stargazersCount}</Paragraph>
+                    <Paragraph style={{textAlign: "center", marginBottom: "initial"}}>Forks: {forksCount}</Paragraph>
+                    <Paragraph style={{textAlign: "center", marginBottom: "initial"}}>
                         <Link href={htmlUrl.toString()}>
                         View Repository
                         </Link>
                     </Paragraph>
-                    <Button onClick={handleEdit}>Edit</Button>
-                    <Button onClick={handleDelete}>Delete</Button>
+                    <Button onClick={handleEdit} style={{margin: "0 0.5rem", alignContent: "center"}}>Edit</Button>
+                    <Button onClick={handleDelete} style={{margin: "0 0.5rem"}}>Delete</Button>
                 </>
             )}
         </List.Item>
     );
-
 };
 
 export default RepositoryItem;
