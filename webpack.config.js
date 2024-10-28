@@ -8,7 +8,7 @@ const production = process.env.NODE_ENV === 'production';
 
 
 module.exports = {
-    entry: { myAppName: path.resolve(__dirname, "./src/index.js") },
+    entry: { vk_elements: path.resolve(__dirname, "./src/index.js") },
     output: {
         path: path.resolve(__dirname, "./dist"),
         filename: production ? '[name].[contenthash].js' : '[name].js',
