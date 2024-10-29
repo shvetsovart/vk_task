@@ -52,7 +52,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: "Webpack & React",
             template: path.resolve(__dirname, 'src/index.html'),
-            favicon: path.resolve(__dirname, 'public/favicon.ico')
+            favicon: path.resolve(__dirname, 'public/favicon.ico'),
+            inject: 'body'
         }),
         new MiniCssExtractPlugin({
             filename: isProduction ? '[name].[contenthash].css' : '[name].css',
