@@ -51,8 +51,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             title: "Webpack & React",
-            template: "./src/index.html",
-            favicon: "./public/favicon.ico"
+            template: path.resolve(__dirname, 'src/index.html'),
+            favicon: path.resolve(__dirname, 'public/favicon.ico')
         }),
         new MiniCssExtractPlugin({
             filename: isProduction ? '[name].[contenthash].css' : '[name].css',
