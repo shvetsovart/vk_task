@@ -4,9 +4,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const production = process.env.NODE_ENV === 'production';
-
-
 module.exports = {
     entry: { vk_elements: path.resolve(__dirname, "./src/index.js") },
     output: {
@@ -64,5 +61,9 @@ module.exports = {
         port: 3001,
         hot: true,
     },
-    mode: production ? 'production' : 'development'
+    mode: 'production',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+    }
 };
