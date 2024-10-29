@@ -4,11 +4,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
     entry: { vk_elements: path.resolve(__dirname, "./src/index.js") },
     output: {
-        path: path.resolve(__dirname, "./dist"),
-        filename: production ? '[name].[contenthash].js' : '[name].js',
+        path: path.resolve(__dirname, "dist"),
+        filename: isProduction ? '[name].[contenthash].js' : '[name].js',
     },
     module: {
         rules: [
@@ -16,30 +18,29 @@ module.exports = {
                 test: /\.(js|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
-                  loader: "babel-loader"
+                    loader: "babel-loader"
                 }
             },
             {
                 test: /\.(a|c)ss$/,
                 exclude: /node_modules/,
                 use: [
-                    production ? MiniCssExtractPlugin.loader : 'style-loader',
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                            sourceMap: !production
+                            sourceMap: !isProduction
                         }
                     },
                     {
                         loader: 'sass-loader',
                         options: {
-                            sourceMap: !production
+                            sourceMap: !isProduction
                         }
                     }
                 ]
             },
-
         ],
     },
     resolve: {
@@ -54,16 +55,12 @@ module.exports = {
             favicon: "./public/favicon.ico"
         }),
         new MiniCssExtractPlugin({
-            filename: production ? '[name].[contenthash].css' : '[name].css',
+            filename: isProduction ? '[name].[contenthash].css' : '[name].css',
         }),
     ],
     devServer: {
         port: 3001,
         hot: true,
     },
-    mode: 'production',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-    }
+    mode: isProduction ? 'production' : 'development',
 };
